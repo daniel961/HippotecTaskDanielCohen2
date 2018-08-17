@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color1"
+    android:layout_margin="7dp"
+    android:padding="10dp"
+    android:id="@+id/ItemParentLayout">
+
+    <TextView
+        android:id="@+id/Fname_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Flower Name"
+        android:textColor="@color/color2"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Season_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Fname_TV"
+        android:layout_centerHorizontal="true"
+        android:text="Best Season"
+        android:textColor="@color/color2"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/Season_TV"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/IV_FlowerPicture"
+        android:src="@drawable/ic_launcher_background" />
+
+
+</RelativeLayout>
