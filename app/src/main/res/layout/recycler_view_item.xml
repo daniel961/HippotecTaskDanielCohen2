@@ -5,38 +5,40 @@
     android:layout_height="wrap_content"
     android:background="@color/color1"
     android:layout_margin="7dp"
-    android:padding="10dp"
+
     android:id="@+id/ItemParentLayout">
 
-    <TextView
-        android:id="@+id/Fname_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Flower Name"
-        android:textColor="@color/color2"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/IV_FlowerPicture"
+        android:layout_width="fill_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher_background"  />
 
     <TextView
         android:id="@+id/Season_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Fname_TV"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="197dp"
         android:text="Best Season"
-        android:textColor="@color/color2"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textColor="@color/color3"
+        android:textSize="35sp" />
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@+id/Season_TV"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/IV_FlowerPicture"
-        android:src="@drawable/ic_launcher_background" />
+    <TextView
+        android:id="@+id/Fname_TV"
+        android:text="Flower Name"
+        android:textSize="40sp"
+        android:textColor="@color/color3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

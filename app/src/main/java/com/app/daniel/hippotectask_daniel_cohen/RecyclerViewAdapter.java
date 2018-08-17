@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -58,14 +59,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView Fname_TV;
         TextView Season_TV;
-        ImageView IV_FlowerPicture;
+        //ImageView IV_FlowerPicture;
+        PhotoView IV_FlowerPicture;
         RelativeLayout ItemParentLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             Fname_TV = itemView.findViewById(R.id.Fname_TV);
             Season_TV = itemView.findViewById(R.id.Season_TV);
-            IV_FlowerPicture = itemView.findViewById(R.id.IV_FlowerPicture);
+            //IV_FlowerPicture = itemView.findViewById(R.id.IV_FlowerPicture);
+            IV_FlowerPicture = (PhotoView) itemView.findViewById(R.id.IV_FlowerPicture);
             ItemParentLayout = itemView.findViewById(R.id.ItemParentLayout);
         }
 

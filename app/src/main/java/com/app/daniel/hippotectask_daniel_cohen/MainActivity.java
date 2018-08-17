@@ -26,9 +26,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //todo detect System Language
+
+
         recyclerView = findViewById(R.id.RecyclerView);
         final getData getDataa = new getData(this);
         getDataa.execute();
+
+
 
 
 
