@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static  List<Flower> ListOfFlowers;//list of flowers
     static RecyclerView recyclerView;
+    String Device_Language = "";
+    TextView LanguageTV;
+    static TextView JSON_DATA_Translates;
 
 
     @Override
@@ -26,7 +30,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        JSON_DATA_Translates = findViewById(R.id.JSON_DATA_Translates);
+
         //todo detect System Language
+        LanguageTV = findViewById(R.id.LanguageTV);
+        Device_Language =  Locale.getDefault().getISO3Language();
+        Toast.makeText(this, "Device Language Detected: " + Device_Language, Toast.LENGTH_SHORT).show();
+        LanguageTV.setText(Device_Language);
+        /*
+        * heb for hebrew
+        * eng for english
+        * rus for russian
+        * */
+
+
 
 
         recyclerView = findViewById(R.id.RecyclerView);

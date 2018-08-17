@@ -32,7 +32,7 @@
     <TextView
         android:id="@+id/Fname_TV"
         android:text="Flower Name"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:textColor="@color/color3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

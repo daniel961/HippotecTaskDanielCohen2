@@ -23,6 +23,7 @@ import java.util.List;
 public class getData extends AsyncTask<Void,Void,Void> {
 
     String JsonData = "";
+    String JsonData2 = "";
     String testString = "";
     String fname;
     String best_season;
@@ -37,6 +38,8 @@ public class getData extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... voids) { //this will do the background task
         try {
+
+            //get Flower Data
             URL url = new URL("https://api.myjson.com/bins/hsjik"); //Url of the Json
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); //opening Connection to URL
             InputStream inputStream = httpURLConnection.getInputStream();
@@ -48,6 +51,24 @@ public class getData extends AsyncTask<Void,Void,Void> {
                 JsonData =  JsonData+DataLine;
             }
 
+            //get Translate Data
+            URL url2 = new URL("http://52.51.81.191:85/getTranslate"); //Url of the Json
+            HttpURLConnection httpURLConnection2 = (HttpURLConnection) url2.openConnection(); //opening Connection to URL
+            InputStream inputStream2 = httpURLConnection2.getInputStream();
+            BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(inputStream2));
+
+            String DataLine2 = "";
+            while(DataLine2 != null){
+                DataLine2 = bufferedReader2.readLine();
+                JsonData2 =  JsonData2+DataLine2;
+            }
+
+            //parse Translate Data
+
+
+
+
+            //parse the Flower Data
             JSONArray JA = new JSONArray(JsonData);
             for(int i=0;i<JA.length();i++){
             JSONObject JO = (JSONObject) JA.get(i);
@@ -84,8 +105,10 @@ public class getData extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         MainActivity.ListOfFlowers = new ArrayList<Flower>(FlowersList);
+        MainActivity.initRecyclerView(context);
 
-        MainActivity.initRecyclerView(context);//problem function is not static
+        MainActivity.JSON_DATA_Translates.setText(JsonData2);
+
 
         //MainActivity.Json_TV.setText(testString);  //send the data to String inside MainActivity
 

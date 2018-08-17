@@ -9,14 +9,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/RecyclerView">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="left"
+              android:textSize="10sp"
+              android:text="Language_Detect"
+              android:id="@+id/LanguageTV"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:textSize="25sp"
+              android:text="HelloTxt"
+              android:id="@+id/HelloTxt"
+              />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:text="WelcomeTxt"
+              android:textSize="25sp"
+              android:id="@+id/WelcomeTxt"
+              />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:textSize="25sp"
+              android:text="FlowerGuidTxt"
+              android:id="@+id/FlowerGuidTxt"
+              />
+
+
+          <android.support.v7.widget.RecyclerView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/RecyclerView">
 
 
 
-        </android.support.v7.widget.RecyclerView>
+          </android.support.v7.widget.RecyclerView>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text=""
+              android:id="@+id/JSON_DATA_Translates"
+
+              />
+
+      </LinearLayout>
+
+
 
 
     </ScrollView>
