@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.Fname_TV.setText(FlowerList.get(position).getFname().toString());
         holder.Season_TV.setText(FlowerList.get(position).getFbestSeason().toString());
+        Picasso.get().load(FlowerList.get(position).getUrl()).into(holder.IV_FlowerPicture);
 
     }
 
