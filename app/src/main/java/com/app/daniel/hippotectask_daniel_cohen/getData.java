@@ -1,6 +1,7 @@
 package com.app.daniel.hippotectask_daniel_cohen;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -27,9 +28,11 @@ public class getData extends AsyncTask<Void,Void,Void> {
     String best_season;
     String image_link;
     List<Flower> FlowersList = new ArrayList<Flower>(); //new list of flowers
+    Context context;
 
-
-
+    public getData(Context context) {
+        this.context = context;
+    }
 
     @Override
     protected Void doInBackground(Void... voids) { //this will do the background task
@@ -81,6 +84,9 @@ public class getData extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         MainActivity.ListOfFlowers = new ArrayList<Flower>(FlowersList);
+
+        MainActivity.initRecyclerView(context);//problem function is not static
+
         //MainActivity.Json_TV.setText(testString);  //send the data to String inside MainActivity
 
 

@@ -1,5 +1,6 @@
 package com.app.daniel.hippotectask_daniel_cohen;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static  List<Flower> ListOfFlowers;//list of flowers
+    static RecyclerView recyclerView;
 
 
     @Override
@@ -24,27 +26,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        final getData getDataa = new getData();
+        recyclerView = findViewById(R.id.RecyclerView);
+        final getData getDataa = new getData(this);
         getDataa.execute();
 
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(getDataa.getStatus() != AsyncTask.Status.FINISHED){
-                    System.out.println("Daniel Therade Still Running");//BackTheread watin for data
-                }
-                //send the Array to RecyclerView HERE
-                System.out.println("Daniel Therade STOPED");
 
 
 
-
-            }
-        });
-
-        thread.start();
 
 
 
@@ -58,11 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
         //functions
 
-    public void initRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this,ListOfFlowers);
+
+
+    public static void initRecyclerView(Context context){
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(context,ListOfFlowers);
         recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
 
     }
@@ -71,4 +61,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
 }
+
+
+
