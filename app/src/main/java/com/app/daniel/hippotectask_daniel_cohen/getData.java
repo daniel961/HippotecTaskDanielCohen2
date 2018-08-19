@@ -30,9 +30,17 @@ public class getData extends AsyncTask<Void,Void,Void> {
     String image_link;
     List<Flower> FlowersList = new ArrayList<Flower>(); //new list of flowers
     Context context;
+    String System_Language;
 
-    public getData(Context context) {
+    //details_Strings
+    String hello_txt = "";
+    String wellcome_txt  = "";
+    String flower_guide_txt = "";
+
+
+    public getData(Context context,String System_Language) {
         this.context = context;
+        this.System_Language = System_Language;
     }
 
     @Override
@@ -52,7 +60,7 @@ public class getData extends AsyncTask<Void,Void,Void> {
             }
 
             //get Translate Data
-            URL url2 = new URL("http://52.51.81.191:85/getTranslate"); //Url of the Json
+            URL url2 = new URL("https://api.myjson.com/bins/1g0mgc"); //Url of the Json
             HttpURLConnection httpURLConnection2 = (HttpURLConnection) url2.openConnection(); //opening Connection to URL
             InputStream inputStream2 = httpURLConnection2.getInputStream();
             BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(inputStream2));
@@ -63,25 +71,62 @@ public class getData extends AsyncTask<Void,Void,Void> {
                 JsonData2 =  JsonData2+DataLine2;
             }
 
+
+
             //parse Translate Data
+            //Translates_JSONS
+            JSONObject JO_Translate = new JSONObject(JsonData2);
+            JSONObject JO_he = (JSONObject) JO_Translate.getJSONObject("he");
+            JSONObject JO_en = (JSONObject) JO_Translate.getJSONObject("en");
+            JSONObject JO_ru = (JSONObject) JO_Translate.getJSONObject("ru");
+
+            JSONArray JA = new JSONArray(JsonData); //Flowers_JSON_Array
 
 
 
 
-            //parse the Flower Data
-            JSONArray JA = new JSONArray(JsonData);
-            for(int i=0;i<JA.length();i++){
-            JSONObject JO = (JSONObject) JA.get(i);
-                fname = (String) JO.get("name");
-                best_season = (String) JO.get("best season");
-                image_link = (String) JO.get("image link");
-
-                testString  = testString + "\n"+  fname + "\n" +
-                                best_season + "\n"+ image_link +"\n" ;
 
 
-                //MainActivity.ListOfFlowers.add(new Flower(fname,best_season,image_link));
-                FlowersList.add(new Flower(fname,best_season,image_link));
+            switch (System_Language){
+                case "heb":
+                    GetData_Translated(JO_he,JA);
+                    break;
+
+                case "eng":
+                    hello_txt = (String) JO_en.getString("hello");
+                    wellcome_txt = (String) JO_en.getString("welcome");
+                    flower_guide_txt = (String) JO_en.getString("flower guide");
+                    for(int i=0;i<JA.length();i++) {
+                        JSONObject JO = (JSONObject) JA.get(i);
+                        fname = (String) JO.get("name");
+                        best_season = (String) JO.get("best season");
+                        image_link = (String) JO.get("image link");
+
+                        FlowersList.add(new Flower(fname, best_season, image_link));
+                    }
+                        break;
+
+                case "rus":
+                    GetData_Translated(JO_ru,JA);
+                    break;
+
+                    default:
+                        //English for default
+                        hello_txt = (String) JO_en.getString("hello");
+                        wellcome_txt = (String) JO_en.getString("welcome");
+                        flower_guide_txt = (String) JO_en.getString("flower guide");
+                        for(int i=0;i<JA.length();i++) {
+                            JSONObject JO = (JSONObject) JA.get(i);
+                            fname = (String) JO.get("name");
+                            best_season = (String) JO.get("best season");
+                            image_link = (String) JO.get("image link");
+
+                            FlowersList.add(new Flower(fname, best_season, image_link));
+                        }
+                        break;
+
+                    //Daniel's Note: i had to use Switch case because when i tried to detect_System Language hebrew got "heb" and in the JSON FILE its wrote "he" so i had to fix it
+
 
             }
 
@@ -89,17 +134,19 @@ public class getData extends AsyncTask<Void,Void,Void> {
 
 
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (JSONException e1) {
+            e1.printStackTrace();
         }
+
+
+
 
 
         return null;
     }
+
 
     @Override
     protected void onPostExecute(Void aVoid) {
@@ -107,11 +154,82 @@ public class getData extends AsyncTask<Void,Void,Void> {
         MainActivity.ListOfFlowers = new ArrayList<Flower>(FlowersList);
         MainActivity.initRecyclerView(context);
 
-        MainActivity.JSON_DATA_Translates.setText(JsonData2);
+        //MainActivity.JSON_DATA_Translates.setText(JsonData2);
 
 
-        //MainActivity.Json_TV.setText(testString);  //send the data to String inside MainActivity
+        /*Texts_Translated*/
+        MainActivity.HelloTxt.setText(hello_txt);
+        MainActivity.WelcomeTxt.setText(wellcome_txt);
+        MainActivity.FlowerGuidTxt.setText(flower_guide_txt);
+
+
+
+
 
 
     }
+
+
+
+
+
+    public void GetData_Translated( JSONObject Select_LANG, JSONArray Json_Array_Data) throws JSONException {
+        //Title_txts
+        hello_txt = (String) Select_LANG.getString("hello");
+        wellcome_txt = (String) Select_LANG.getString("welcome");
+        flower_guide_txt = (String) Select_LANG.getString("flower guide");
+
+
+
+
+
+
+        for(int i=0;i<Json_Array_Data.length();i++) {
+            JSONObject JO = (JSONObject) Json_Array_Data.get(i);
+
+
+            fname =  Select_LANG.getString((String) JO.get("name"));
+            if(Select_LANG.has((String) JO.get("best season"))){ //must Translate the Words that Contains two seasons
+                best_season = (String) Select_LANG.getString((String) JO.get("best season"));
+
+            }else {
+                //Hebrew Translate for Complicated String
+                best_season = (String) JO.get("best season");
+
+
+                if ((best_season.contains("to"))&&(System_Language.contains("heb"))) {
+                    best_season = best_season.replace("to", "ל-");
+                    best_season = "בין " + best_season;
+                }
+                if ((best_season.contains("to"))&&(System_Language.contains("rus"))) {
+                    best_season = best_season.replace("to", "в");
+                }
+
+                if (best_season.contains("summer")) {
+                    best_season = best_season.replace("summer", (String) Select_LANG.getString("summer"));
+                }
+                if (best_season.contains("winter")) {
+                    best_season = best_season.replace("winter", Select_LANG.getString("winter"));
+                }
+                if (best_season.contains("fall")) {
+                    best_season = best_season.replace("fall", Select_LANG.getString("fall"));
+                }
+                if (best_season.contains("spring")) {
+                    best_season = best_season.replace("spring", Select_LANG.getString("spring"));
+                }
+
+                //Russian Translate for Complicated String
+            }
+
+
+
+            image_link = (String) JO.get("image link");
+            FlowersList.add(new Flower(fname,best_season,image_link));
+        }
+
+
+
+    }
+
+
 }

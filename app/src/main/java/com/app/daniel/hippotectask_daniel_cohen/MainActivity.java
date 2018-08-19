@@ -22,7 +22,13 @@ public class MainActivity extends AppCompatActivity {
     static RecyclerView recyclerView;
     String Device_Language = "";
     TextView LanguageTV;
+
+    static TextView HelloTxt;
+    static TextView WelcomeTxt;
+    static TextView FlowerGuidTxt;
+
     static TextView JSON_DATA_Translates;
+
 
 
     @Override
@@ -30,13 +36,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        JSON_DATA_Translates = findViewById(R.id.JSON_DATA_Translates);
+
+
+        /*Refs for Tvs*/
+        HelloTxt = findViewById(R.id.HelloTxt);
+        WelcomeTxt = findViewById(R.id.WelcomeTxt);
+        FlowerGuidTxt = findViewById(R.id.FlowerGuidTxt);
+
 
         //todo detect System Language
         LanguageTV = findViewById(R.id.LanguageTV);
         Device_Language =  Locale.getDefault().getISO3Language();
         Toast.makeText(this, "Device Language Detected: " + Device_Language, Toast.LENGTH_SHORT).show();
-        LanguageTV.setText(Device_Language);
+        LanguageTV.setText( "Language: " + Device_Language);
         /*
         * heb for hebrew
         * eng for english
@@ -47,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.RecyclerView);
-        final getData getDataa = new getData(this);
+        final getData getDataa = new getData(this,Device_Language);
         getDataa.execute();
 
 
