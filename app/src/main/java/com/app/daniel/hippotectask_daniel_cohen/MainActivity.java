@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         FlowerGuidTxt = findViewById(R.id.FlowerGuidTxt);
 
 
-        //todo detect System Language
+
         LanguageTV = findViewById(R.id.LanguageTV);
         Device_Language =  Locale.getDefault().getISO3Language();
         Toast.makeText(this, "Device Language Detected: " + Device_Language, Toast.LENGTH_SHORT).show();
